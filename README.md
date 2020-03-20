@@ -127,17 +127,15 @@ int main(int argc,char* argv[]) {
     }else{
         sleepsleep+=(59+tm.tm_sec-Sdetik);
     }
-
     pid_t pid, sid;        // Variabel untuk menyimpan PID
     pid = fork();     // Menyimpan PID dari Child Process
     /* Keluar saat fork gagal
     * (nilai variabel pid < 0) */
-    if (pid < 0) exit(EXIT_FAILURE);
 
+    if (pid < 0) exit(EXIT_FAILURE);
     /* Keluar saat fork berhasil
     * (nilai variabel pid adalah PID dari child process) */
     if (pid > 0) exit(EXIT_SUCCESS);
-
     umask(0);
 
     sid = setsid();
@@ -146,19 +144,16 @@ int main(int argc,char* argv[]) {
     if ((chdir("/")) < 0) {
         exit(EXIT_FAILURE);
     }
-
+char aku[100]="";
+strcat(aku,argv[4]);
+    char *Bashing[] ={"bash",aku,NULL};
+                        execv("/bin/bash",Bashing);
     close(STDIN_FILENO);
     close(STDOUT_FILENO);
     close(STDERR_FILENO);
-    
-    sleep(sleepsleep);
- 
-    pid = fork();
-    if (pid == 0){
-        char *ash[] ={"bash",argv[4],NULL};
-        execv("/bin/bash",ash);
-    }    
 
+    sleep(sleepsleep);
+ 	
     while (1) {
         if(Sjam == 60){
             if(Smenit == 60){
@@ -169,7 +164,7 @@ int main(int argc,char* argv[]) {
                     sleep(1);
                     pid = fork();
                     if (pid == 0){
-                        char *Bashing[] ={"bash",argv[4],NULL};
+                        char *Bashing[] ={"bash",aku,NULL};
                         execv("/bin/bash",Bashing);
                     }    
                 }  
@@ -177,7 +172,7 @@ int main(int argc,char* argv[]) {
                     sleep(Sdetik);
                     pid = fork();
                     if (pid == 0){
-                        char *Bashing[] ={"bash",argv[4],NULL};
+                        char *Bashing[] ={"bash",aku,NULL};
                         execv("/bin/bash",Bashing);
                     }    
                     sleep(60-Sdetik);
@@ -190,7 +185,7 @@ int main(int argc,char* argv[]) {
                 sleep(1);
                 pid = fork();
                 if (pid == 0){
-                    char *Bashing[] ={"bash",argv[4],NULL};
+                    char *Bashing[] ={"bash",aku,NULL};
                     execv("/bin/bash",Bashing);
                 }    
             }  
@@ -198,7 +193,7 @@ int main(int argc,char* argv[]) {
                 sleep(Sdetik);
                 pid = fork();
                 if (pid == 0){
-                    char *Bashing[] ={"bash",argv[4],NULL};
+                    char *Bashing[] ={"bash",aku,NULL};
                     execv("/bin/bash",Bashing);
                 }    
                 sleep(60-Sdetik);
@@ -215,7 +210,7 @@ int main(int argc,char* argv[]) {
                     sleep(1);
                     pid = fork();
                     if (pid == 0){
-                        char *Bashing[] ={"bash",argv[4],NULL};
+                        char *Bashing[] ={"bash",aku,NULL};
                         execv("/bin/bash",Bashing);
                     }    
                 }  
@@ -223,7 +218,7 @@ int main(int argc,char* argv[]) {
                     sleep(Sdetik);
                     pid = fork();
                     if (pid == 0){
-                        char *Bashing[] ={"bash",argv[4],NULL};
+                        char *Bashing[] ={"bash",aku,NULL};
                         execv("/bin/bash",Bashing);
                     }    
                     sleep(60-Sdetik);
@@ -236,15 +231,15 @@ int main(int argc,char* argv[]) {
                 sleep(1);
                 pid = fork();
                 if (pid == 0){
-                    char *Bashing[] ={"bash",argv[4],NULL};
+                    char *Bashing[] ={"bash",aku,NULL};
                     execv("/bin/bash",Bashing);
                 }    
             }  
             }else{
                 sleep(Sdetik);
-                pid = fork();
+                pm/AZakyH/Modul-Pelatihan-Linux-2018id = fork();
                 if (pid == 0){
-                    char *Bashing[] ={"bash",argv[4],NULL};
+                    char *Bashing[] ={"bash",aku,NULL};
                     execv("/bin/bash",Bashing);
                 }    
                 sleep(60-Sdetik);
@@ -283,10 +278,15 @@ int main(int argc,char *argv[]) {
     char Timing[128];
     char Timingv2[256];
     char Download[128];
-    char Ziper[128];
+    char Ziper[128]="";
     pid_t pid, sid,child_id;        // Variabel untuk menyimpan PID
 
     pid = fork();     // Menyimpan PID dari Child Process
+	FILE *filePointer ;
+	filePointer = fopen("KILLER.sh","w");
+	fprintf(filePointer,"%s","pkill Soal2");
+
+fclose(filePointer);
 
     /* Keluar saat fork gagal
     * (nilai variabel pid < 0) */
@@ -319,12 +319,14 @@ int main(int argc,char *argv[]) {
     if (child_id < 0 ) exit(EXIT_FAILURE);
     if (child_id == 0)
     {
-        if(arc == 2&&argv[1][1]=='b'){
+        if(argc == 2&&argv[1][1]=='b'){
             argv[0][2]='K';
         }
         t = time(NULL);
         tm = *localtime(&t);
         snprintf(Timing,sizeof(Timing),"/home/yodhan/workspace/modul2/%d-%02d-%02d_%02d:%02d:%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+            strcpy(Ziper, Timing);
+            strcat(Ziper,".zip");
         child_id = fork();
         if (child_id < 0 ) exit(EXIT_FAILURE);
         if (child_id == 0)
@@ -346,7 +348,7 @@ int main(int argc,char *argv[]) {
                 char *arc[] = {"wget","-O",Timingv2,Download,NULL};
                 execv("/usr/bin/wget",arc);
             }
-            sleep(5);
+sleep(5);
         }
         wait(NULL);
         sleep(10);
@@ -354,13 +356,11 @@ int main(int argc,char *argv[]) {
         if (child_id < 0 ) exit(EXIT_FAILURE);
         if (child_id == 0)
         {
-            strcat(Ziper, Timing);
-            strcat(Ziper,".zip");
-            char *arc[] = {"zip",Ziper,Timing,NULL};
+            char *arc[] = {"zip","-rq",Ziper," ",Timing,NULL};
             execv("/usr/bin/zip",arc);
         }
         wait(NULL);
-        sleep(25);
+        sleep(10);
         char *arc[] = {"rm","-rf",Timing,NULL};
         execv("/bin/rm",arc);
     }
@@ -372,20 +372,7 @@ kodingan menerima inputan argumen -a atau -b yang akan membuat apakah anaknya ak
 kodingan akan menjalankannya sesuai dengan apa yang diberikan
 mendonload file sebanyak 20x di folder yang dibuat dan mengzip dan mengdelete file tersebut
 jika file -a maka child akan memiliki nama yang sama dengan paretntnya sedangkan jika -b child akan diganti namanya menjadi yang lain supaya tidak mati ketika di pkill
-###Soal2stopper.c
-```
-#include <stdio.h>
-#include <unistd.h>
 
-int main () {
-  char *argv[4] = {"pkill", "Soal3", NULL};
-  
-  execv("/usr/bin/pkill", argv);
-  return 0;
-
-}
-kodingan akan membunuh file yang mempunyai nama Soal3 dengan begitu parent dan child yang tidak diganti namanya akan terbunuh
-```
 ##Soal3.c
 ```
 #include <stdlib.h>
